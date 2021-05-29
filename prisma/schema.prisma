@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Concert {
+  id               Int       @id @default(autoincrement())
+  startDate        DateTime
+  artist           Artist    @relation(fields: [artistId], references: [id])
+  description      String?
+  price            String?
+  style            String?
+  urlToBuyTicket   String?
+  urlDescription   String?
+  largePictureUrl  String    @default("https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60")
+  tumbnailPicture  String?
+  isPartOfFestival Boolean   @default(false)
+  festivalName     String?
+  isCanceled       Boolean   @default(false)
+  createdManually  Boolean   @default(false)
+  venue            Venue     @relation(fields: [venueId], references: [id])
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  deletedAt        DateTime?
+  artistId         Int
+  venueId          Int
+}
+
+model Artist {
+  id                 Int       @id @default(autoincrement())
+  name               String
+  spotifyTopTrackUri String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+  Concert            Concert[]
+}
+
+model Venue {
+  id            Int       @id @default(autoincrement())
+  name          String
+  twitterHandle String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime?
+  Concert       Concert[]
+}
