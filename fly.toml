@@ -1,14 +1,15 @@
-# fly.toml file generated for chambery-concerts-server on 2021-05-29T12:55:22+02:00
+# fly.toml file generated for red-cloud-8380 on 2021-05-29T18:38:07+02:00
 
-app = "chambery-concerts-server"
+app = "red-cloud-8380"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
 
 [build]
-  builtin = "node"
+  builder = "heroku/buildpacks:20"
 
 [env]
+  PORT = "8080"
 
 [experimental]
   allowed_public_ports = []
