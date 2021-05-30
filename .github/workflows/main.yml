@@ -28,3 +28,5 @@ jobs:
       # Runs a single command using the runners shell
       - name: Migrate db to heroku postgres
         run: npx prisma migrate deploy
+        env:
+                  DATABASE_URL: ${{secrets.DATABASE_URL}}
